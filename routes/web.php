@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return "XIIRPL1";
 });
+
+Route::get('/me','App\Http\Controllers\AuthController@me');
