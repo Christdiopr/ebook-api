@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\author;
+use App\Models\Author;
 
 class AuthorController extends Controller
 {
@@ -15,7 +15,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $author = Author::all();
+        $author = return Author::all();
         if($author && $author->count() > 0){
             return response(['message' => 'Show data success.', 'data' => $author], 200);
         }else{
@@ -51,7 +51,7 @@ class AuthorController extends Controller
      */
     public function show($id)
     {
-        $author = Author::find($id);
+        $author = return Author::find($id);
 
         if($author && $author->count() > 0){
             return response(['message' => 'Show data success.', 'data' => $author], 200);
@@ -93,12 +93,13 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        $author = Author::destroy($id);
-        
+        $author = Author::find($id);
         if($author){
-            return response([], 204);
-        }else{
-            return response(['message' => 'Remove data failed.', 'data' => null], 406);
+            $author->deleted();
+            return "Delete data success";
+        }else
+        {
+            return "Data not found";
         }
     }
 }
